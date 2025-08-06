@@ -1,11 +1,9 @@
 import './App.css'
 import TypewriterText from './components/TypewriterText/TypewriterText.controller'
-import useFetch from './hooks/useFetch'
-import useUrlFlag from './hooks/useUrlFlag'
+import useFlag from './hooks/useFlag'
 
 function App() {
-	const { urlFlag } = useUrlFlag()
-	const { flag, loading, error } = useFetch(urlFlag)
+	const { flag, loading, error } = useFlag()
 
 	return (
 		<div className='App'>
