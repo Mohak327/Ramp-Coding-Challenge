@@ -13,33 +13,29 @@ export default function useUrlFlag() {
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
-        const liArr = Array.from(doc.getElementsByTagName("li"));
         let url = "";
-        liArr.forEach((li) => {
-          const liAttribute = li.getAttribute("data-id");
-          if (liAttribute?.startsWith("98")) {
-            const parent = li.parentElement;
-            if (parent?.tagName === "UL") {
-              const ulAttribute = parent.getAttribute("data-tag");
-              if (ulAttribute?.includes("75")) {
-                const divChild = li.getElementsByTagName("div")[0];
-                if (divChild) {
-                  const divAttribute = divChild.getAttribute("data-class");
-                  if (divAttribute?.endsWith("35")) {
-                    const childNodes = divChild.getElementsByTagName("span");
-                    for (let i = 0; i < childNodes.length; i++) {
-                      const value = childNodes[i].getAttribute("value");
-                      if (value !== null) {
-                        url += value;
-                        break;
-                      }
-                    }
-                  }
+        const sections = Array.from(
+          doc.querySelectorAll('section[data-id^="92"]')
+        );
+        for (const section of sections) {
+          const articles = Array.from(
+            section.querySelectorAll('article[data-class$="45"]')
+          );
+          for (const article of articles) {
+            const divs = Array.from(
+              article.querySelectorAll('div[data-tag*="78"]')
+            );
+            for (const div of divs) {
+              const bs = div.querySelectorAll("b.ref[value]");
+              bs.forEach((b) => {
+                const value = b.getAttribute("value");
+                if (value) {
+                  url += value;
                 }
-              }
+              });
             }
           }
-        });
+        }
         setUrlFlag(url);
       })
       .catch((error) => setError(error))

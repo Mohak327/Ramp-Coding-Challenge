@@ -9,7 +9,7 @@ function App() {
 
 	return (
 		<div className='App'>
-			<div>Challenge for Ramp</div>
+			<div>Ramp - Capture The Flag</div>
 			{error !== null && <div>Error...</div>}
 			{loading && <div>Loading...</div>}
 			<TextTyper text={flag} interval={500} />
