@@ -1,3 +1,7 @@
 .flagText {
   color: yellow;
 }
+
+.typewriterLetter {
+  display: inline;
+}

@@ -2,24 +2,26 @@ import { useState, useEffect, FC } from 'react'
 import TypewriterTextView from './TypewriterText.view'
 
 const TextTyper: FC<TypewriterTextProps> = ({ text = '', interval = 100 }) => {
-	const [typedText, setTypedText] = useState('')
+	const [displayed, setDisplayed] = useState('')
 
 	useEffect(() => {
-		let localTypingIndex = 0
-		let localTyping = ''
+		if (!text) {
+			setDisplayed('')
+			return
+		}
+		let i = 0
+		setDisplayed('')
 		const printer = setInterval(() => {
-			if (localTypingIndex < text.length) {
-				setTypedText((localTyping += text[localTypingIndex]))
-				localTypingIndex++
+			i++
+			setDisplayed(text.slice(0, i))
+			if (i >= text.length) {
+				clearInterval(printer)
 			}
 		}, interval)
-
-		return () => {
-			clearInterval(printer)
-		}
+		return () => clearInterval(printer)
 	}, [text, interval])
 
-	return <TypewriterTextView typedText={typedText} />
+	return <TypewriterTextView text={displayed} />
 }
 
 export default TextTyper
