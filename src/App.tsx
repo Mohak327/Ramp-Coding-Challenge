@@ -1,5 +1,5 @@
 import './App.css'
-import TextTyper from './components/TextTyper'
+import TypewriterText from './components/TypewriterText/TypewriterText.controller'
 import useFetch from './hooks/useFetch'
 import useUrlFlag from './hooks/useUrlFlag'
 
@@ -12,7 +12,7 @@ function App() {
 			<div>Ramp - Capture The Flag</div>
 			{error !== null && <div>Error...</div>}
 			{loading && <div>Loading...</div>}
-			<TextTyper text={flag} interval={500} />
+			<TypewriterText text={flag} interval={500} />
 		</div>
 	)
 }

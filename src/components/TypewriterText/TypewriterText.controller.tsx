@@ -1,11 +1,7 @@
 import { useState, useEffect, FC } from 'react'
+import TypewriterTextView from './TypewriterText.view'
 
-interface ITextTyper {
-	text: string
-	interval: number
-}
-
-const TextTyper: FC<ITextTyper> = ({ text = '', interval = 100 }) => {
+const TextTyper: FC<TypewriterTextProps> = ({ text = '', interval = 100 }) => {
 	const [typedText, setTypedText] = useState('')
 
 	useEffect(() => {
@@ -23,13 +19,7 @@ const TextTyper: FC<ITextTyper> = ({ text = '', interval = 100 }) => {
 		}
 	}, [text, interval])
 
-	return (
-		<ul>
-			{[...typedText].map(item => (
-				<li key={item}>{item}</li>
-			))}
-		</ul>
-	)
+	return <TypewriterTextView typedText={typedText} />
 }
 
 export default TextTyper

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { URL_CHALLENGE } from "../utils/constants";
 
 export default function useUrlFlag() {
@@ -9,33 +9,16 @@ export default function useUrlFlag() {
   useEffect(() => {
     setLoading(true);
     fetch(URL_CHALLENGE)
-      .then(async (res) => await res.text())
+      .then(res => res.text())
       .then((html) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
-        let url = "";
-        const sections = Array.from(
-          doc.querySelectorAll('section[data-id^="92"]')
+        const bs = doc.querySelectorAll(
+          'section[data-id^="92"] article[data-class$="45"] div[data-tag*="78"] b.ref[value]'
         );
-        for (const section of sections) {
-          const articles = Array.from(
-            section.querySelectorAll('article[data-class$="45"]')
-          );
-          for (const article of articles) {
-            const divs = Array.from(
-              article.querySelectorAll('div[data-tag*="78"]')
-            );
-            for (const div of divs) {
-              const bs = div.querySelectorAll("b.ref[value]");
-              bs.forEach((b) => {
-                const value = b.getAttribute("value");
-                if (value) {
-                  url += value;
-                }
-              });
-            }
-          }
-        }
+        const url = Array.from(bs)
+          .map(b => b.getAttribute("value") || "")
+          .join("");
         setUrlFlag(url);
       })
       .catch((error) => setError(error))
