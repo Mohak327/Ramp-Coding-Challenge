@@ -12,7 +12,7 @@ function App() {
 			<div>Ramp - Capture The Flag</div>
 			{error !== null && <div>Error...</div>}
 			{loading && <div>Loading...</div>}
-			<TypewriterText text={flag} interval={500} />
+			<TypewriterText text={flag} interval={300} />
 		</div>
 	)
 }
