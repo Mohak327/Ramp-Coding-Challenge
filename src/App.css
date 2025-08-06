@@ -1,0 +1,16 @@
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
+.App {
+	display: flex;
+	flex-direction: column;
+}
+
+.App ul {
+	list-style: none;
+	padding: 0;
+}
